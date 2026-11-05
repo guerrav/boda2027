@@ -1,0 +1,26 @@
+Sitio estático (GitHub Pages): sube esta carpeta tal cual.
+
+1. Portada: ya usa portada.jpg (junto a index.html). Para cambiarla, reemplaza ese archivo.
+2. Fotos: en index.html, cada recuadro con class="ph" acepta style="background-image:url('foto.jpg')".
+3. Textos entre [corchetes]: reemplázalos por los tuyos.
+4. RSVP: la lista de invitados está en invitados.js (nombre, lugares e "incluye" opcional). Borra los ejemplos.
+   Las respuestas se envían a CONFIG.rsvpEndpoint (recomendado) o, si no hay, abren WhatsApp (CONFIG.rsvpWhatsapp) o correo (CONFIG.rsvpEmail) en main.js.
+5. Colores y fuentes: variables al inicio de style.css.
+
+
+=== CONFIRMACIONES (RSVP) EN GOOGLE SHEETS ===
+1. Entra a sheets.google.com con la cuenta que quieras usar y crea una hoja nueva (ej. "Confirmaciones boda").
+2. Menú Extensiones > Apps Script. Borra lo que haya y pega todo el contenido de google-sheets-script.gs. Guarda.
+3. Implementar > Nueva implementación > tipo "Aplicación web".
+   - Ejecutar como: Yo.   - Quién tiene acceso: Cualquier persona.
+   Implementar, autoriza los permisos cuando lo pida y copia la URL que termina en /exec.
+4. Abre main.js y pega esa URL en CONFIG.rsvpEndpoint (entre las comillas).
+5. Prueba una confirmación en el sitio: debe aparecer la hoja "Confirmaciones" con una fila.
+Nota: si cambias el script después, hay que hacer Implementar > Administrar implementaciones > editar > Nueva versión.
+
+=== LISTA DE INVITADOS EN GOOGLE SHEETS ===
+El buscador del RSVP lee la pestaña "Invitados" del mismo Google Sheet (columnas: Invitación | Lugares | Incluye (opcional)).
+- Para crearla con la lista actual: en Apps Script pega el google-sheets-script.gs nuevo, elige la función cargarInvitadosIniciales y presiona Ejecutar (una sola vez).
+- Luego Implementar > Administrar implementaciones > lápiz > Nueva versión (la URL no cambia).
+- Para agregar o quitar invitados, edita esa pestaña; el sitio la lee cada vez que se abre. El nombre de cada invitación debe ser único.
+- Si la hoja no responde, el sitio usa invitados.js como respaldo.

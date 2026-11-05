@@ -1,0 +1,359 @@
+/* ===== Variables (cambia colores y fuentes aquí) ===== */
+:root {
+  --bg: #ECECEC;          /* fondo gris claro */
+  --fg: #3a3d42;          /* texto */
+  --accent: #1F3556;      /* botones / acentos */
+  --accent-rgb: 31,53,86; /* mismo color del acento, en RGB (para transparencias) */
+  --card: #F7F7F7;        /* tarjetas (itinerario, RSVP, nuestra historia) */
+  --heading: #25282d;     /* títulos */
+  --muted: #7a7e85;       /* textos secundarios */
+  --placeholder: #a8abb0;
+  --nav-bg: #FFFFFF;
+  --cover-text: #FFFFFF;
+  --cover-image: url("portada-manos.webp");
+  --serif: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;   /* texto corrido */
+  --display: "Italiana", "Playfair Display", Georgia, serif;        /* títulos */
+  --sans: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --nav-h: 64px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--serif); font-size: 16px; line-height: 1.7;
+}
+h1, h2, h3, h4, h5, h6 { color: var(--heading); margin: 0; font-weight: 400; font-family: var(--display); }
+p { margin: 0 0 1em; }
+hr { width: 24%; border: 0; border-top: 1px solid var(--fg); margin: 64px auto; display: block; }
+hr.tight { margin: 6px auto; }
+a { color: inherit; }
+
+/* ===== Grid de 16 columnas sobre 960px ===== */
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+.sixteen { width: 100%; }
+.twelve { width: 75%; } .fourteen { width: 87.5%; }
+.offset-two { margin-left: 12.5%; } .offset-one { margin-left: 6.25%; }
+.centered { text-align: center; }
+
+/* ===== Nav ===== */
+.nav-bar {
+  position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 1000;
+  background: var(--nav-bg); box-shadow: 1px 0 15px #777; text-align: center;
+}
+.nav-bar ul { display: inline-block; margin: 0; padding: 0; list-style: none; }
+.nav-bar li { float: left; padding: 20px; }
+.nav-bar a {
+  color: #000; text-decoration: none; font-family: var(--sans); font-weight: 700;
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase; line-height: 24px; display: block;
+}
+.nav-bar a:hover, .nav-bar a.active { color: var(--accent); }
+.nav-toggle { display: none; }
+
+/* ===== Portada y secciones (efecto cortina) =====
+   Sin JS: las secciones van una tras otra en flujo normal.
+   Con JS (html.curtains): cada sección es una "tarjeta" fija que sube y deja ver la siguiente. */
+#home { height: 100vh; min-height: 500px; padding-top: var(--nav-h); }
+.cover-photo {
+  height: 100%;
+  position: relative; overflow: hidden; background: var(--cover-image) center top / cover no-repeat, #0d0b0a;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.cover-photo-inner { position: relative; z-index: 1; max-width: 960px; padding: 0 20px; }
+.cover-photo hr { width: 24%; margin: 36px auto; border-color: #fff; }
+.cover-photo h1 {
+  color: var(--cover-text); font-size: 64px; line-height: 1.05; text-transform: uppercase;
+  letter-spacing: 1px; text-shadow: 0 1px 3px rgba(0,0,0,.45), 0 3px 18px rgba(0,0,0,.45);
+}
+.cover-date {
+  display: block; color: var(--cover-text); font-family: var(--sans); font-size: 14px;
+  letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 1px 3px rgba(0,0,0,.6), 0 2px 12px rgba(0,0,0,.5);
+}
+
+#curtains > section { padding: 0 0 80px; background: var(--bg); }
+#curtains > #home { padding-bottom: 0; }
+
+html.curtains #curtains > section {
+  position: fixed; top: 0; left: 0; right: 0; width: 100%;
+  min-height: 100vh; padding-top: var(--nav-h);
+  box-shadow: 0 -1px 2px rgba(0,0,0,.5), 0 5px 10px rgba(0,0,0,.55), 0 10px 18px rgba(0,0,0,.3);   /* sombra que la tarjeta proyecta sobre la de abajo */
+  will-change: transform; backface-visibility: hidden;
+}
+html.curtains #curtains > #home { height: 100vh; }
+html.curtains #curtains > section:last-child { box-shadow: none; }
+
+/* ===== Títulos de sección ===== */
+.section-title { text-align: center; }
+.section-title h2, #vestimenta h2, #nosotros h2 {
+  font-size: 40px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px;
+}
+#vestimenta h2 { margin-bottom: 20px; }
+.section-title hr { margin-top: 64px; margin-bottom: 36px; }
+
+/* ===== Botones ===== */
+.button, button.button {
+  display: inline-block; border: 0; padding: 10px 25px; background: var(--accent); color: #fff;
+  font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; text-decoration: none; cursor: pointer; transition: filter .2s;
+}
+.button:hover { filter: brightness(1.25); }
+
+/* ===== Marcadores de foto ===== */
+.ph {
+  position: relative; background: #d9cfae; overflow: hidden;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 12px, transparent 12px 24px);
+  background-size: cover; background-position: center;
+}
+.ph::after {
+  content: attr(data-label); position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--sans); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(68,68,68,.6);
+}
+.ph[style*="background-image"]::after { display: none; }
+.dress-img { display: block; width: 100%; height: auto; margin: 0 auto 20px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.22)); }
+.ph-dress { width: 60%; aspect-ratio: 4 / 3; margin: 0 auto 20px; }
+
+/* ===== Nosotros: texto arriba, foto abajo ===== */
+.about-text p { font-size: 18px; text-align: left; margin-bottom: 0; }
+.about-photo { width: calc(100% - 80px); max-width: 1240px; margin: 56px auto 0; }   /* deja ver el fondo a los lados */
+.about-photo img { display: block; width: 100%; height: auto; }
+
+/* ===== Itinerario: foto del lugar de fondo, cuadro al frente ===== */
+/* Encabezado pegado a la caja: mismo ancho, centrado, sobre crema para que se lea sobre la foto */
+#itinerario .section-title, #nosotros .section-title {
+  width: 350px; max-width: 100%; margin: 0 0 0 auto; padding: 24px 20px 14px; text-align: center;
+  background: var(--card); border: 1px solid var(--accent); border-bottom: 0;
+}
+#itinerario .section-title hr, #nosotros .section-title hr { width: 24%; margin: 0 auto 16px; border-color: var(--accent); }
+#itinerario .section-title h2, #nosotros .section-title h2 { margin: 0; font-size: 30px; font-weight: 500; letter-spacing: 3px; color: var(--heading); }
+#itinerario, #nosotros { position: relative; }   /* con la cortina activa pasa a fixed */
+#curtains > #itinerario, #curtains > #nosotros { padding-bottom: 0; }
+/* título + caja centrados verticalmente en la pantalla */
+#itinerario > .container, #nosotros > .container { position: relative; z-index: 1; min-height: calc(100vh - var(--nav-h)); display: flex; flex-direction: column; justify-content: center; padding-bottom: 24px; }
+.sched-bgs { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.sched-bg { position: absolute; inset: 0; background: center / cover no-repeat; opacity: 0; transition: opacity .7s ease; }
+.sched-bg.on { opacity: 1; }
+
+/* ===== Itinerario: tarjeta compacta + línea de tiempo ===== */
+.sched { --sched-font: "Jost", var(--sans); font-family: var(--sched-font); max-width: 350px; margin: 0 0 0 auto; }
+.sched-card { border: 1px solid var(--accent); background: var(--card); }
+.sched-slide { display: none; grid-template-columns: 1fr; gap: 16px; align-items: start; padding: 24px 26px 16px; }
+.sched-slide.active { display: grid; }
+.sched-main h3 { font-family: var(--sched-font); font-weight: 400; font-size: 16px; text-transform: uppercase; letter-spacing: 1.4px; margin: 0 0 8px; line-height: 1.15; }
+.sched-main p { font-size: 14px; font-weight: 300; line-height: 1.3; margin: 0; }
+.sched-details { padding-top: 14px; border-top: 1px solid rgba(var(--accent-rgb),.25); }
+.sched-details h6 { font-family: var(--sched-font); font-size: 13px; font-weight: 400; letter-spacing: 1.4px; text-transform: uppercase; color: #181818; margin: 0 0 3px; line-height: 1.25; }
+.sched-details p { font-size: 14px; font-weight: 300; line-height: 1.3; margin: 0 0 10px; }
+.sched-details .button { margin: 0 0 14px; padding: 8px 20px; font-size: 11px; font-family: var(--sched-font); font-weight: 500; letter-spacing: 2px; border-radius: 2px; }
+.sched-details .sched-attire { margin-top: 0; }
+
+.sched-timeline { list-style: none; margin: 0; padding: 0 0 14px; display: flex; background: var(--card); border: 1px solid var(--accent); border-top: 0; }
+.sched-timeline { justify-content: center; gap: 0; }
+.sched-timeline li { flex: 1 1 0; min-width: 0; text-align: center; }
+.sched-timeline button { display: block; width: 100%; background: none; border: 0; padding: 0 6px; cursor: pointer; font: inherit; color: var(--fg); text-align: center; }
+.sched-timeline .dot { display: block; width: 14px; height: 14px; margin: -8px auto 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); transition: background .2s; }
+.sched-timeline li.active .dot { background: var(--accent); }
+.sched-timeline button:hover .dot { background: color-mix(in srgb, var(--accent), var(--bg) 55%); }
+.sched-timeline li.active button:hover .dot { background: var(--accent); }
+.sched-timeline strong { display: block; font-weight: 500; font-size: 15px; letter-spacing: 1px; margin-bottom: 1px; }
+.sched-timeline span { display: block; font-size: 13px; font-weight: 300; line-height: 18.2px; }
+
+/* ===== FAQ ===== */
+.faq-item { max-width: 760px; margin: 0 auto 32px; padding: 0 20px; }
+.faq-item p { font-weight: 300; }
+.faq-item h3 { font-family: var(--sans); font-weight: 400; font-size: 22px; margin-bottom: 8px; }
+.faq-item p + p { margin-top: -.2em; }
+
+/* ===== Vestimenta ===== */
+#vestimenta { padding-bottom: 100px !important; }
+#vestimenta hr:first-of-type { margin-top: 64px; }
+#vestimenta p.centered { max-width: 640px; margin: 20px auto 0; }
+
+/* ===== RSVP: buscar nombre -> elegir ===== */
+[hidden] { display: none !important; }
+.rsvp { --ui-font: "Jost", var(--sans); font-family: var(--ui-font); max-width: 640px; margin: 0 auto; text-align: center; }
+.rsvp-copy { font-family: "Jost", sans-serif; font-size: 20px; font-weight: 300; line-height: 1.55; margin: 0 auto 44px; max-width: 620px; padding: 24px 30px; text-wrap: balance; background: var(--card); border: 1px solid var(--accent); }
+.rsvp-label { display: block; font-family: var(--display); font-size: 28px; margin-bottom: 18px; color: var(--heading); }
+.rsvp-searchbox { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--accent); padding: 8px 4px; color: var(--accent); }
+.rsvp-searchbox input { flex: 1; border: 0; background: transparent; outline: 0; font: 300 22px var(--ui-font); color: var(--fg); padding: 6px 0; min-width: 0; }
+.rsvp-searchbox input::placeholder { color: var(--placeholder); }
+.rsvp-searchbox:focus-within { border-bottom-color: var(--heading); }
+.rsvp-results { list-style: none; margin: 0; padding: 0; text-align: left; }
+.rsvp-results li button {
+  display: block; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid rgba(var(--accent-rgb),.18);
+  padding: 16px 6px; cursor: pointer; font: 400 20px var(--ui-font); color: var(--heading); transition: background .15s, padding .15s;
+}
+.rsvp-results li button small { display: block; font-size: 14px; font-weight: 300; color: var(--muted); margin-top: 2px; }
+.rsvp-results li button:hover, .rsvp-results li button:focus-visible { background: rgba(var(--accent-rgb),.07); padding-left: 14px; outline: 0; }
+.rsvp-hint { min-height: 1.6em; margin: 16px 0 0; font-size: 15px; font-weight: 300; color: var(--muted); }
+
+.rsvp-hello { font-family: var(--display); font-size: 32px; margin: 0 0 6px; color: var(--heading); }
+.rsvp-seats { font-size: 20px; font-weight: 400; margin: 0 0 4px; }
+.rsvp-seats strong { font-weight: 500; color: var(--accent); }
+.rsvp-incluye { font-size: 15px; font-weight: 300; color: var(--muted); margin: 0; }
+.rsvp-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 36px 0 8px; }
+.rsvp-choice {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  min-height: 130px; padding: 18px 12px; cursor: pointer; background: transparent; color: var(--accent);
+  border: 2px solid var(--accent); font-family: var(--display); font-size: 24px; line-height: 1.2;
+  transition: background .2s, color .2s, transform .2s, box-shadow .2s;
+}
+.rsvp-choice:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,.14); }
+.rsvp-choice[aria-pressed="true"] { background: var(--accent); color: #fff; box-shadow: 0 10px 22px rgba(var(--accent-rgb),.3); }
+.rsvp-choice.no[aria-pressed="true"] { background: #4a4a4a; border-color: #4a4a4a; color: #fff; box-shadow: 0 10px 22px rgba(0,0,0,.25); }
+.rsvp-choice.no { color: #4a4a4a; border-color: #4a4a4a; }
+.rsvp-count { margin-top: 26px; }
+.rsvp-count p { font-size: 18px; margin: 0 0 12px; font-weight: 300; }
+.rsvp-pills { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.rsvp-pills button { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--accent); background: transparent; color: var(--accent); font: 500 18px var(--ui-font); cursor: pointer; transition: background .15s, color .15s; }
+.rsvp-pills button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.rsvp-notes { display: block; margin-top: 26px; text-align: left; font-size: 14px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; }
+.rsvp-notes textarea { display: block; width: 100%; margin-top: 8px; padding: 10px 12px; font: 300 16px var(--ui-font); color: var(--fg); background: rgba(255,255,255,.6); border: 1px solid #cfc7a8; resize: vertical; }
+.rsvp-send { display: block; margin: 30px auto 0; padding: 16px 44px; font-size: 13px; font-family: var(--ui-font); letter-spacing: 2.5px; }
+.rsvp-send:disabled { opacity: .35; cursor: not-allowed; filter: none; }
+.rsvp-link { display: inline-block; margin-top: 22px; background: none; border: 0; padding: 4px; font: 300 15px var(--ui-font); color: var(--muted); text-decoration: underline; cursor: pointer; }
+.rsvp-link:hover { color: var(--accent); }
+.rsvp-status { min-height: 1.6em; margin: 10px 0 0; font-size: 15px; font-weight: 300; }
+.rsvp-done h3 { font-family: var(--display); font-size: 36px; margin: 10px 0 14px; }
+.rsvp-done p { font-size: 19px; font-weight: 300; line-height: 1.7; }
+.rsvp-step { animation: rsvpIn .45s ease both; }
+@keyframes rsvpIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rsvp-step { animation: none; } }
+
+/* ===== Registro ===== */
+#regalos p.twelve { text-align: center; margin-bottom: 30px; }
+.registry-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== Galería ===== */
+.gallery { display: flex; flex-direction: column; gap: 16px; }
+.gal-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.gal-tall { aspect-ratio: 3 / 4; }
+.gal-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 16px; }
+.gal-stack.gal-one { grid-template-rows: 1fr; }
+.gal-stack .ph { min-height: 160px; }
+
+.site-footer { text-align: center; margin: 60px 0 0; padding: 0; font-family: var(--sans); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; }
+
+/* ===== Menú compacto (ventanas angostas) ===== */
+@media (max-width: 1100px) { .nav-bar li { padding: 20px 14px; } }
+@media (max-width: 980px) {
+  .nav-toggle { display: block; position: absolute; left: 12px; top: 10px; font-size: 26px; background: none; border: 0; cursor: pointer; }
+  .nav-bar { text-align: left; }
+  .nav-bar ul { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0; background: var(--nav-bg); box-shadow: 0 8px 12px rgba(0,0,0,.2); }
+  .nav-bar.open ul { display: block; }
+  .nav-bar li { float: none; padding: 14px 24px; }
+}
+
+/* ===== Móvil ===== */
+@media (max-width: 860px) {
+  .cover-photo h1 { font-size: 40px; }
+  .twelve, .fourteen { width: 100%; margin-left: 0; }
+  .section-title h2 { font-size: 28px; }
+  .sched { margin: 0 auto; }   /* columna angosta centrada */
+  #itinerario .section-title { margin: 0 auto; }
+    .sched-slide.active { gap: 14px; padding: 22px 20px; }
+    .sched-timeline strong { font-size: 13px; }
+  .sched-timeline span { font-size: 13px; }
+  .about-photo { width: calc(100% - 40px); }
+  .rsvp-choices { grid-template-columns: 1fr; gap: 14px; }
+  .rsvp-choice { min-height: 96px; flex-direction: row; gap: 14px; font-size: 20px; }
+  .rsvp-searchbox input { font-size: 19px; }
+  .gal-row { grid-template-columns: 1fr; }
+  .gal-tall { aspect-ratio: 4 / 3; }
+  .ph-dress { width: 100%; }
+}
+
+@media (max-width: 480px) { .sched { max-width: none; } }
+
+/* Texto del código de vestimenta: párrafo justificado y parejo */
+#vestimenta .dress-text { max-width: 600px; margin: 20px auto 0; text-align: justify; text-align-last: center; hyphens: none; -webkit-hyphens: none; overflow-wrap: normal; word-break: normal; text-wrap: pretty; }
+#vestimenta .dress-img { margin: 12px auto 0; }
+#vestimenta .dress-note { margin-top: 4px; }
+#vestimenta .dress-note { font-size: 15px; opacity: .85; }
+
+#nosotros .about-text p { margin: 0 0 1.4em; }
+#nosotros .about-text p:last-child { margin-bottom: 0; }
+
+/* ===== Nuestra historia: nenúfares de fondo, cuadro con el texto ===== */
+#nosotros .section-title { width: 420px; margin: 0 auto 0 0; }
+#nosotros .story { width: 420px; max-width: 100%; margin: 0 auto 0 0; font-family: "Jost", var(--sans); }
+#nosotros .story-card { border: 1px solid var(--accent); background: var(--card); padding: 24px 28px 8px; }
+#nosotros .story-card p { font-size: 15.5px; font-weight: 300; line-height: 1.65; margin: 0 0 1.1em; text-align: left; }
+#nosotros .sched-bg { background-position: right center; }
+@media (max-width: 860px) { #nosotros .section-title, #nosotros .story { margin: 0 auto; } }
+
+/* Portada: texto a la izquierda para no tapar a la pareja */
+@media (min-width: 861px) {
+  .cover-photo { justify-content: flex-start; padding-left: 5vw; }
+  .cover-photo-inner { width: 52vw; max-width: 760px; }
+  .cover-photo h1 { text-shadow: 0 1px 4px rgba(0,0,0,.6), 0 3px 22px rgba(0,0,0,.65); }
+  .cover-date { text-shadow: 0 1px 4px rgba(0,0,0,.8), 0 2px 16px rgba(0,0,0,.7); }
+}
+
+/* Portada: más legibilidad del título y la fecha (halo oscuro suave detrás del texto) */
+.cover-photo-inner::before {
+  content: ""; position: absolute; z-index: -1; inset: -70px -90px; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.62) 0, rgba(0,0,0,.42) 42%, rgba(0,0,0,0) 72%);
+}
+.cover-photo hr { border-top-width: 2px; }
+.cover-date { font-size: 17px; font-weight: 500; letter-spacing: 4px; }
+@media (min-width: 861px) { .cover-photo h1 { font-size: 68px; } }
+@media (max-width: 860px) { .cover-photo { background-position: 66% top, 0 0; } }
+
+
+#vestimenta .dress-note { text-align: center; text-align-last: center; text-wrap: balance; hyphens: none; word-spacing: normal; }
+
+/* RSVP: invitación y fecha límite forman un solo grupo de texto, en tarjeta (Jost 400, 15 px) */
+.rsvp-invite { display: block; font-size: inherit; font-weight: inherit; line-height: inherit; margin: 0; }
+
+/* Línea de tiempo con 3 eventos: columnas iguales y fechas en una sola línea */
+.sched-timeline strong { font-size: 14px; line-height: 1.25; }
+.sched-timeline span { font-size: 15px; line-height: 1.3; white-space: nowrap; }
+
+.rsvp-prev { margin: 0 auto 22px; max-width: 460px; padding: 12px 18px; font-size: 15px; font-weight: 400; line-height: 1.45; background: var(--card); border: 1px solid var(--accent); text-align: center; }
+
+.rsvp-copy strong { font-weight: 600; }
+
+/* ===== Preguntas frecuentes: tarjeta como en itinerario ===== */
+#preguntas > .container { max-width: 900px; min-height: calc(100vh - var(--nav-h)); display: flex; flex-direction: column; justify-content: center; padding-bottom: 24px; }
+#preguntas .section-title { width: 100%; margin: 0; padding: 24px 20px 14px; background: var(--card); border: 1px solid var(--accent); border-bottom: 0; }
+#preguntas .section-title hr { width: 12%; margin: 0 auto 16px; border-color: var(--accent); }
+#preguntas .section-title h2 { margin: 0; font-size: 30px; font-weight: 500; letter-spacing: 3px; color: var(--heading); }
+.faq-card { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 44px; padding: 26px 34px 30px; background: var(--card); border: 1px solid var(--accent); border-top: 1px solid rgba(var(--accent-rgb), .25); }
+.faq-card .faq-item { max-width: none; margin: 0; padding: 0; }
+.faq-card .faq-item h3 { font-size: 19px; line-height: 1.3; margin-bottom: 6px; }
+.faq-card .faq-item p { font-size: 15px; line-height: 1.55; margin-bottom: 0; }
+.faq-card .faq-item p + p { margin-top: .5em; }
+@media (max-width: 860px) {
+  .faq-card { grid-template-columns: 1fr; gap: 20px; padding: 22px 22px 26px; }
+  .faq-card .faq-item h3 { font-size: 18px; }
+  .faq-card .faq-item p { font-size: 14px; line-height: 1.5; }
+}
+
+
+/* ===== Preguntas frecuentes: foto de fondo ===== */
+#curtains > #preguntas { background: linear-gradient(rgba(10,8,6,.12), rgba(10,8,6,.12)), url("preguntas-fondo.webp") center / cover no-repeat, #2a2a1c; }
+
+/* Recepción: foto espejada para que las flores queden a la izquierda, lejos de la tarjeta */
+.sched-bg.bg-lirios { transform: scaleX(-1); }
+
+/* Portada: foto horizontal de las manos (manos a la derecha, texto a la izquierda) */
+.cover-photo { background: linear-gradient(90deg, rgba(8,6,4,.38), rgba(8,6,4,.14) 55%, rgba(8,6,4,0)), var(--cover-image) center / cover no-repeat, #0d0b0a; }
+@media (max-width: 860px) { .cover-photo { align-items: flex-end; padding-bottom: 56px; background: linear-gradient(to top, rgba(8,6,4,.78), rgba(8,6,4,.4) 45%, rgba(8,6,4,.05)), var(--cover-image) 80% center / cover no-repeat, #0d0b0a; } .cover-photo hr { margin: 22px auto; } }
+
+/* ===== RSVP: foto de fondo + panel como en itinerario ===== */
+#curtains > #rsvp { background: linear-gradient(rgba(8,10,6,.15), rgba(8,10,6,.15)), url("rsvp-estanque.webp") center / cover no-repeat, #15180f; }
+#rsvp > .container { max-width: 760px; min-height: calc(100vh - var(--nav-h)); display: flex; flex-direction: column; justify-content: center; padding-bottom: 24px; }
+#rsvp .section-title { width: 100%; max-width: 700px; margin: 0 auto; padding: 22px 20px 14px; background: var(--card); border: 1px solid var(--accent); border-bottom: 0; }
+#rsvp .section-title hr { width: 12%; margin: 0 auto 14px; border-color: var(--accent); }
+#rsvp .section-title h2 { margin: 0; font-size: 28px; font-weight: 500; letter-spacing: 2px; color: var(--heading); }
+#rsvp .rsvp { max-width: 700px; width: 100%; padding: 26px 34px 32px; background: color-mix(in srgb, var(--card) 95%, transparent); border: 1px solid var(--accent); border-top: 1px solid rgba(var(--accent-rgb), .25); }
+#rsvp .rsvp-copy { background: none; border: 0; padding: 0; margin: 0 auto 26px; max-width: none; font-size: 19px; }
+#rsvp .rsvp-label { margin-bottom: 14px; }
+@media (max-width: 860px) { #rsvp .rsvp { padding: 22px 18px 28px; } #rsvp .section-title h2 { font-size: 22px; letter-spacing: 1.5px; } #rsvp .rsvp-copy { font-size: 17px; } }
+/* Escritorio: panel a la izquierda (sobre el follaje desenfocado) para dejar ver los nenúfares a la derecha */
+@media (min-width: 1100px) {
+  #rsvp > .container { max-width: none; margin: 0; width: 100%; padding-left: 6vw; align-items: flex-start; }
+  #rsvp .section-title, #rsvp .rsvp { max-width: 620px; margin-left: 0; margin-right: 0; }
+  #rsvp .section-title h2 { font-size: 26px; letter-spacing: 1.5px; }
+  #rsvp .rsvp { padding-left: 28px; padding-right: 28px; }
+}
