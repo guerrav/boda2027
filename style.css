@@ -364,3 +364,23 @@ html.curtains #curtains > section:last-child { box-shadow: none; }
   #vestimenta .dress-main { max-width: 980px; text-align: center; }
   #vestimenta .dress-main .dl { white-space: nowrap; }
 }
+
+/* Código de vestimenta en móvil: texto corrido y centrado (sin justificar, sin huecos grandes), en ~4 renglones */
+@media (max-width: 999px) {
+  #vestimenta .dress-main { max-width: none; width: calc(100% + 28px); margin-left: -14px; margin-right: -14px; font-size: 12.5px; line-height: 1.55; text-align: center; text-align-last: center; text-wrap: balance; word-spacing: normal; }
+  #vestimenta .dress-main .dl { display: inline; }
+  #vestimenta .dress-main .dl::before { content: " "; }
+}
+
+/* Móvil: encabezado de Vestimenta más compacto (todo sube) */
+@media (max-width: 860px) {
+  #vestimenta .section-title hr, #vestimenta hr:first-of-type { margin-top: 28px; margin-bottom: 16px; }
+  #vestimenta h2 { font-size: 33px; text-wrap: balance; letter-spacing: 1px; line-height: 1.15; margin-bottom: 14px; }
+  #vestimenta .dress-text { margin-top: 10px; }
+  #vestimenta .dress-main { margin-top: 8px; }
+  #vestimenta .dress-img { margin-top: 8px; }
+  #vestimenta .dress-note { margin-top: 2px; }
+  /* Galería: las fotos apiladas (2, 7 y 4) se muestran casi completas, no recortadas en tira */
+  .gal-stack, .gal-stack.gal-one { grid-template-rows: auto; }
+  .gal-stack .ph { min-height: 0; aspect-ratio: 4 / 5; }
+}
