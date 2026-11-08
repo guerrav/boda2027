@@ -26,7 +26,7 @@ nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.cla
   // "Pausa": al llegar a una sección, se necesitan unos cuantos scrolls más
   // antes de que la cortina empiece a subir (da tiempo de leer).
   function measure() {
-    hold = Math.round(Math.min(340, Math.max(180, innerHeight * 0.38)));
+    hold = Math.round(Math.min(620, Math.max(340, innerHeight * 0.7)));
     heights = secs.map(s => s.offsetHeight);
     let acc = 0;
     starts = heights.map((h, i) => { const s = acc; acc += h + (i < secs.length - 1 ? hold : 0); return s; });

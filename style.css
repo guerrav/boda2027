@@ -357,3 +357,10 @@ html.curtains #curtains > section:last-child { box-shadow: none; }
   #rsvp .section-title h2 { font-size: 26px; letter-spacing: 1.5px; }
   #rsvp .rsvp { padding-left: 28px; padding-right: 28px; }
 }
+
+/* Código de vestimenta: cada línea (Caballeros / Damas) en un solo renglón en pantallas anchas */
+#vestimenta .dress-main .dl { display: block; }
+@media (min-width: 1000px) {
+  #vestimenta .dress-main { max-width: 980px; text-align: center; }
+  #vestimenta .dress-main .dl { white-space: nowrap; }
+}
